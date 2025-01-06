@@ -1,0 +1,12 @@
+streamlit
+python-dotenv
+langchain
+PyPDF2
+chromadb
+faiss-cpu
+langchain_community
+langchain_mistralai
+langserve
+fastapi
+uvicorn
+langchain_core
