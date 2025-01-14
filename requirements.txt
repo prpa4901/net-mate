@@ -10,3 +10,4 @@ langserve
 fastapi
 uvicorn
 langchain_core
+torch
