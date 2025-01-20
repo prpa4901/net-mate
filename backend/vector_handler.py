@@ -15,13 +15,13 @@ class VectorHandler:
 
         print(f"Model will run on: {model_device}")
 
-        self.embeddings = HuggingFaceInstructEmbeddings(model_name=model_name, 
+        self.embeddings = HuggingFaceInstructEmbeddings(model_name=model_name,
                                                         model_kwargs={"device":model_device},
                                                         encode_kwargs={"normalize_embeddings":True})
         # self.file_store=upload_dir
-        self.vector_store=self.load_vector_store()
         self.vector_dir=vectorstore_dir
-        self.pdf_obj = PDFProcessor()
+        self.vector_store=self.load_vector_store()
+        # self.pdf_obj = PDFProcessor()
         os.makedirs(self.vector_dir, exist_ok=True)
 
 
@@ -39,13 +39,14 @@ class VectorHandler:
 
         """Generate embeddings for the given documents and save to vectorstore."""
 
-        init_chunks = self.pdf_obj.init_create_chunks()
+        pdf_obj = PDFProcessor()
+        init_chunks = pdf_obj.init_create_chunks()
         self.vector_store = FAISS.from_documents(init_chunks, self.embeddings)
         self.vector_store.save_local(self.vector_dir)
         # return init_vectors
 
 
-    def create_adhoc_embeddings(self, uploaded_doc):
+    def create_adhoc_embeddings(self, chunks, uploaded_doc):
 
         """
         Add embeddings for an ad-hoc user-uploaded document.
@@ -57,7 +58,7 @@ class VectorHandler:
         file_name = getattr(uploaded_doc, "name", None) \
           or getattr(uploaded_doc, "filename", "uploaded_document.pdf")
 
-        chunks = self.pdf_obj.load_user_pdf(uploaded_doc)
+        # chunks = self.pdf_obj.load_user_pdf(uploaded_doc)
         user_chunks = [{"text": chunk, "metadata": {"source": file_name}} for chunk in chunks]
         self.vector_store.add_texts(
             texts=[chunk["text"] for chunk in user_chunks],

@@ -23,7 +23,7 @@ class PDFProcessor:
         pass
 
 
-    def load_user_pdf(self, document):
+    def process_user_pdf(self, document):
 
         pdf_loader=PdfReader(document)
         text = ""
