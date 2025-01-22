@@ -1,6 +1,6 @@
-from backend.pdf_processor import PDFProcessor
+from pdf_processor import PDFProcessor
 from fastapi import APIRouter, HTTPException, File, UploadFile, Depends
-from backend.api_routers.dependencies import get_memory_store
+from api_routers.dependencies import get_memory_store
 
 router = APIRouter()
 

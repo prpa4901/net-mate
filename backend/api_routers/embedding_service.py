@@ -1,6 +1,6 @@
-from backend.vector_handler import VectorHandler
+from vector_handler import VectorHandler
 from fastapi import APIRouter, HTTPException, Depends
-from backend.api_routers.dependencies import get_memory_store
+from api_routers.dependencies import get_memory_store, get_vector_handler
 
 router = APIRouter()
 
@@ -8,8 +8,9 @@ router = APIRouter()
 @router.post("/create-user-embeddings/")
 async def create_user_embeddings(file_name:str,
                                  memory_store: dict = Depends(get_memory_store),
-                                 vec_obj: VectorHandler = Depends()):
+                                 vec_obj: VectorHandler = Depends(get_vector_handler)):
     try:
+        print(memory_store.keys())
         chunks = memory_store.get(file_name)
         if not chunks:
             raise HTTPException(status_code=404, detail="File not found in memory store")

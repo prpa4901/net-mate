@@ -1,9 +1,9 @@
 from langchain_community.embeddings import HuggingFaceInstructEmbeddings
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain.vectorstores import FAISS
-import torch
+from langchain_community.vectorstores import FAISS
+# import torch
 import os
-from backend.pdf_processor import PDFProcessor
+from pdf_processor import PDFProcessor
 
 
 class VectorHandler:
@@ -11,7 +11,8 @@ class VectorHandler:
     def __init__(self, vectorstore_dir="vectorstore",
                  model_name="hkunlp/instructor-large"):
 
-        model_device = "cuda" if torch.cuda.is_available() else "cpu"
+        # model_device = "cuda" if torch.cuda.is_available() else "cpu"
+        model_device = "cpu"
 
         print(f"Model will run on: {model_device}")
 
