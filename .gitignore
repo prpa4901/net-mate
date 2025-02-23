@@ -1,1 +1,4 @@
 ccie-env/
+information_store/
+vectorstore/
+.env
