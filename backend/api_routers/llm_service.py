@@ -18,7 +18,10 @@ async def ask_query(human_question: HumanQuestion,
                                  chat_history,
                                  llm_chain)
         print(response)
-        updated_chat_history = f"{chat_history}\nUser: {human_question.question}\nBot: {response}" if chat_history else f"User: {human_question.question}\nBot: {response}"
+        updated_chat_history = (
+            f"{chat_history}\nUser: {human_question.question}\nBot: {response}" if chat_history
+            else f"User: {human_question.question}\nBot: {response}"
+        )
         return LLMResponse(response=str(response['answer']), chat_history=updated_chat_history)
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=f"Invalid input: {ve}")

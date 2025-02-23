@@ -7,6 +7,10 @@ services:
       - "8087:8087"
     environment:
       - BASE_PATH=${PWD}
+  frontend-app:
+    build: ./chatbot
+    ports:
+      - "8085:8085"
     # deploy:
     #  resources:
     #    reservations:
