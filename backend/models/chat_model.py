@@ -1,11 +1,10 @@
-from pydantic import BaseModel
-from typing import List, Optional
-
-class LLMResponse(BaseModel):
-    response: str
-    chat_history: str
-
+from pydantic import BaseModel, Field
+# from typing import List, Optional, Literal, Union
+# from langchain_core.messages import HumanMessage, AIMessage
 
 class HumanQuestion(BaseModel):
     question: str
-    chat_history: Optional[str] = ""
+
+class LLMResponse(BaseModel):
+    response: str
+

@@ -2,7 +2,7 @@
 FROM python:3.12-slim AS builder
 WORKDIR /backend
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Stage 2: Runtime stage
 FROM python:3.12-slim

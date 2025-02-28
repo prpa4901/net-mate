@@ -1,8 +1,8 @@
 from PyPDF2 import PdfReader
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.docstore.document import Document
-import os
+# from langchain.docstore.document import Document
+# import os
 
 
 class PDFProcessor:
@@ -12,7 +12,7 @@ class PDFProcessor:
         self.file_store=information_dir + "/app_default/"
         self.directory_loader=PyPDFDirectoryLoader(self.file_store)
         self.text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-        self.initial_doc_numbers=50
+        self.initial_doc_numbers=200
 
 
     def load_dir(self):
