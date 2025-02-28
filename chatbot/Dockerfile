@@ -1,11 +1,12 @@
-FROM python:3.10:0-slim
+FROM python:3.10-slim
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 COPY . /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+EXPOSE 8501
 
-EXPOSE 8085
-
-CMD ["python", "app.py"]
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0"]
