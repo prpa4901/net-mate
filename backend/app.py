@@ -14,7 +14,7 @@ BASE_LLM_URL = "http://host.docker.internal:11434"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # os.makedirs("information_store/app_default", exist_ok=True)
+    os.makedirs("/backend/vectorstore", exist_ok=True)
     vec_obj = VectorHandler()
     llm_obj = NetMate()
     vec_obj.create_default_embeddings()
@@ -24,13 +24,15 @@ async def lifespan(app: FastAPI):
     app.state.query_handler = llm_obj
     app.state.llm_chain = llm_obj.create_conversational_chain(vec_obj)
     assert app.state.llm_chain is not None
+    app.state.chat_history = []
     add_routes(app, app.state.llm_chain)
     yield
     app.state.memory_store.clear()
-    vectorstore_path = "vectorstore"
-    cleared_index = FAISS()
-    cleared_index.save_local(vectorstore_path)
-    shutil.rmtree(vectorstore_path)
+    # vectorstore_path = "vectorstore"
+    # cleared_index = FAISS()
+    app.state.chat_history = []
+    # cleared_index.save_local(vectorstore_path)
+    # shutil.rmtree(vectorstore_path)
     print("FAISS index cleared successfully.")
 
 
