@@ -3,6 +3,7 @@ services:
     build: ./backend
     volumes:
       - ./information_store:/backend/information_store
+      - ./vectorstore:/backend/vectorstore
     ports:
       - "8087:8087"
     environment:
@@ -10,7 +11,7 @@ services:
   frontend-app:
     build: ./chatbot
     ports:
-      - "8085:8085"
+      - "8501:8501"
     # deploy:
     #  resources:
     #    reservations:
